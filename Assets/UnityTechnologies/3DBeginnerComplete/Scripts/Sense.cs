@@ -8,7 +8,13 @@ public class Sense : MonoBehaviour
     public string lookout;
     //The gameobject to toggle when a lookout is encountered
     public GameObject toggle;
+    //The particleSystem to toggle
+    private ParticleSystem sys;
 
+    private void Start()
+    {
+        sys = toggle.GetComponent<ParticleSystem>();
+    }
     //When a collision occurs
     private void OnTriggerEnter(Collider other)
     {
@@ -16,7 +22,7 @@ public class Sense : MonoBehaviour
         if(other.CompareTag(lookout))
         {
             Debug.Log("Hello there");
-            toggle.SetActive(true);
+            sys.Play();
         }
     }
 
@@ -25,7 +31,7 @@ public class Sense : MonoBehaviour
         if(other.CompareTag(lookout))
         {
             Debug.Log("Bye-bye");
-            toggle.SetActive(false);
+            sys.Stop(false, ParticleSystemStopBehavior.StopEmitting);
         }
     }
 }
