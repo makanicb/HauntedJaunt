@@ -21,7 +21,7 @@ public class Sense : MonoBehaviour
         //If the other object's tag matches lookout
         if(other.CompareTag(lookout))
         {
-            Debug.Log("Hello there");
+            //Debug.Log("Hello there");
             sys.Play();
         }
     }
@@ -30,7 +30,7 @@ public class Sense : MonoBehaviour
     {
         if(other.CompareTag(lookout))
         {
-            Debug.Log("Bye-bye");
+            //Debug.Log("Bye-bye");
             sys.Stop(false, ParticleSystemStopBehavior.StopEmitting);
         }
     }
