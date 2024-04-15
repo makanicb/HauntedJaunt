@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
+using Unity.Mathematics;
 
 public class GhostTracker : MonoBehaviour
 {
     // Initialize vars
     private int ghostFlag;
     private float ghostDist;
+    private Vector3 vecDiff;
+    private Vector3 pPos;
+    private float dProd;
     public TextMeshProUGUI ghostTracker;
     public GameObject player;
     public GameObject ghost0;
@@ -38,34 +43,50 @@ public class GhostTracker : MonoBehaviour
     void Update()
     {
         // Calculate and display ghostDist every frame
-        switch(ghostFlag)
+        // Also update ghostFlag
+        pPos = player.transform.position;
+        switch (ghostFlag)
         {
             case 0:
-                ghostDist = Vector3.Distance(player.transform.position, ghost0.transform.position);
+                ghostDist = CalcGhostDist(player, ghost0);
+                if (pPos.x >= -3.5 && pPos.x <= -0.5 && pPos.z >= 4.5 && pPos.z <= 7.5)
+                {
+                    ghostFlag++;
+                }
                 break;
             case 1:
-                ghostDist = Vector3.Distance(player.transform.position, ghost1.transform.position);
+                ghostDist = CalcGhostDist(player, ghost1);
+                if (pPos.x >= -0.5 && pPos.x <= 2.5 && pPos.z >= 7.5 && pPos.z <= 10.5)
+                {
+                    ghostFlag++;
+                }
                 break;
             case 2:
-                ghostDist = Vector3.Distance(player.transform.position, ghost2.transform.position);
+                ghostDist = CalcGhostDist(player, ghost2);
+                if (pPos.x >= 6.5 && pPos.x <= 9.5 && pPos.z >= 1.5 && pPos.z <= 4.5)
+                {
+                    ghostFlag++;
+                }
                 break;
             case 3:
-                ghostDist = Vector3.Distance(player.transform.position, ghost3.transform.position);
+                ghostDist = CalcGhostDist(player, ghost3);
                 break;
             default:
                 Debug.LogError("ghostFlag counted above 3");
-                ghostDist = Vector3.Distance(player.transform.position, ghost0.transform.position);
+                ghostDist = CalcGhostDist(player, ghost0);
                 break;
         }
         SetGhostText ();
     }
 
-    void OnTriggerEnter(Collider other)
+    // Calculate distance to ghost using dot product
+    float CalcGhostDist(GameObject p, GameObject g)
     {
-        if (other.gameObject.CompareTag("ghostTracker"))
-        {
-            ghostFlag++;
-            other.gameObject.SetActive(false);
-        }
+        vecDiff = p.transform.position - g.transform.position;
+        // Dot product
+        dProd = (vecDiff.x * vecDiff.x) + (vecDiff.y * vecDiff.y) + (vecDiff.z * vecDiff.z);
+        return math.sqrt(dProd);
+
+        // return Vector3.Distance(p.transform.position, g.transform.position);
     }
 }
