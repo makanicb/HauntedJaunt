@@ -5,7 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ghost
+<<<<<<< Updated upstream
   - Gargoyle
+=======
+  - ghostTracker
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
