@@ -4,4 +4,4 @@ Particle Effect and Trigger (Makani Buckley): Added a particle effect to make Jo
 
 Sound Effect and Trigger:
 
-Gameplay Element that uses Linear Interpolation:
+Gameplay Element that uses Linear Interpolation: Added a material to the ghosts that changes color as the ghosts near the player. It starts from white and gets redder as it gets closer.
